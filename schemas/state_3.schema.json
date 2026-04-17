@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "state_3",
+  "description": "Artifact at end of stage REFACTOR. Loaded by stage STABILIZE.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "phase_completed",
+    "cycle_depth",
+    "candidate_structures",
+    "operation_log"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "phase_completed": { "const": "REFACTOR" },
+    "cycle_depth": { "type": "integer", "minimum": 0 },
+    "candidate_structures": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "proposition",
+          "mechanism",
+          "emergence",
+          "blend_integrity",
+          "originality",
+          "on_pareto_frontier",
+          "constraint_compliance"
+        ],
+        "properties": {
+          "proposition": { "type": "string", "minLength": 10 },
+          "mechanism":   { "type": "string", "minLength": 10 },
+          "emergence":   { "type": "string", "minLength": 5 },
+          "origin_pair": {
+            "type": "object",
+            "properties": {
+              "a": { "type": "string" },
+              "b": { "type": "string" }
+            }
+          },
+          "from_failure_residue": { "type": "boolean" },
+          "blend_integrity":     { "type": "number", "minimum": 0, "maximum": 1 },
+          "originality":         { "type": "number", "minimum": 0, "maximum": 1 },
+          "on_pareto_frontier":  { "type": "boolean" },
+          "constraint_compliance": {
+            "type": "object",
+            "required": ["hard"],
+            "properties": {
+              "hard":            { "enum": ["ok", "violated"] },
+              "soft_violations": { "type": "array" }
+            }
+          }
+        }
+      }
+    },
+    "discarded_blends": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["reason", "blend_brief"]
+      }
+    },
+    "failure_residue_recovery_attempts": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "operation_log": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 150,
+      "items": {
+        "type": "object",
+        "required": ["op", "notes", "timestamp"]
+      }
+    }
+  }
+}

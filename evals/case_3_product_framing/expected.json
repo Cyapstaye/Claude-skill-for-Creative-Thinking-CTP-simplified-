@@ -1,0 +1,13 @@
+{
+  "stable_core_must_satisfy": [
+    { "kind": "structure",     "check": "five lines" },
+    { "kind": "originality",   "check": "originality score >= 0.6 against corpus/obvious_product.md" },
+    { "kind": "flexibility",   "check": "flexibility_index >= 3 (Combinatorial expects multi-domain)" },
+    { "kind": "seed",          "check": "Seed names a constraint" }
+  ],
+  "run_must_satisfy": [
+    { "check": "state_2 flexibility_index >= 3 (not just >= 2)" },
+    { "check": "state_1.projected.distance >= 2" },
+    { "check": "mode=Combinatorial -> target_originality = 0.60" }
+  ]
+}

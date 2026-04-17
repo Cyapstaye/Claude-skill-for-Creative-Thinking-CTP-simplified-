@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "state_4",
+  "description": "Artifact at end of stage STABILIZE. Terminal or loops to new cycle.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "phase_completed",
+    "cycle_depth",
+    "mode",
+    "constraint_lattice",
+    "stable_core",
+    "action",
+    "operation_log"
+  ],
+  "properties": {
+    "schema_version":   { "const": 1 },
+    "phase_completed":  { "const": "STABILIZE" },
+    "cycle_depth":      { "type": "integer", "minimum": 0 },
+    "mode":             { "enum": ["Exploratory", "Applied", "Combinatorial"] },
+    "constraint_lattice": {
+      "type": "object",
+      "required": ["hard", "soft", "provisional"]
+    },
+    "stable_core": {
+      "type": "object",
+      "required": ["proposition", "mechanism", "novelty", "constraint", "seed", "originality_score"],
+      "properties": {
+        "proposition":       { "type": "string", "minLength": 10 },
+        "mechanism":         { "type": "string", "minLength": 10 },
+        "novelty":           { "type": "string", "minLength": 5 },
+        "constraint":        { "type": "string", "minLength": 5 },
+        "seed":              { "type": "string", "minLength": 5 },
+        "originality_score": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "composite_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "action":          { "enum": ["emit", "recurse"] },
+    "convergence_bias_warning": { "type": "boolean" },
+    "budget_exceeded":          { "type": "boolean" },
+    "run_stuck":                { "type": "boolean" },
+    "cycle_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cycle_index", "stable_core"],
+        "properties": {
+          "cycle_index": { "type": "integer", "minimum": 0 },
+          "stable_core": { "type": "object" }
+        }
+      }
+    },
+    "operation_log": {
+      "type": "array",
+      "minItems": 40,
+      "maxItems": 150,
+      "items": {
+        "type": "object",
+        "required": ["op", "notes", "timestamp"]
+      }
+    }
+  }
+}

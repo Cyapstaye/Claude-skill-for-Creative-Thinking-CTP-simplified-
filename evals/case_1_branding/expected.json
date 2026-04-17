@@ -1,0 +1,17 @@
+{
+  "stable_core_must_satisfy": [
+    { "kind": "structure",   "check": "five lines, one each for Proposition, Mechanism, Novelty, Constraint, Seed" },
+    { "kind": "compress",    "check": "each line <= 22 words, >= 3 words" },
+    { "kind": "originality", "check": "originality score >= 0.6 against corpus/obvious_branding.md" },
+    { "kind": "seed",        "check": "Seed line names at least one entry by name from constraint_lattice" }
+  ],
+  "run_must_satisfy": [
+    { "check": "state_2.entropy_field.fluency_index >= 20 (cycle 0)" },
+    { "check": "state_2.entropy_field.flexibility_index >= 2" },
+    { "check": "state_3.candidate_structures.length >= 5" },
+    { "check": "state_4.stable_core.originality_score is a number in [0, 1]" },
+    { "check": "operation_log entries all have timestamp" },
+    { "check": "constraint_lattice.hard.length in [1, 2]" }
+  ],
+  "notes": "Structural-only eval. Content fidelity is unmeasurable without a live model; this checks that the skill's invariants hold."
+}

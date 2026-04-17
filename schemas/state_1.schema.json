@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "state_1",
+  "description": "Artifact at end of stage INIT. Loaded by stage DRIFT.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "phase_completed",
+    "input_payload",
+    "mode",
+    "payload_slug",
+    "cycle_depth",
+    "run_id",
+    "primitives",
+    "dominant_paths",
+    "suppression_log",
+    "implicit_assumptions",
+    "constraint_lattice",
+    "concurrent_variants",
+    "projected",
+    "field",
+    "operation_log"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "phase_completed": { "const": "INIT" },
+    "input_payload": { "type": "string", "minLength": 1 },
+    "mode": { "enum": ["Exploratory", "Applied", "Combinatorial"] },
+    "payload_slug": { "type": "string", "pattern": "^[a-z0-9-]{2,40}$" },
+    "cycle_depth": { "type": "integer", "minimum": 0 },
+    "run_id": { "type": "string", "minLength": 4 },
+    "primitives": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["entity", "role"],
+        "properties": {
+          "entity":     { "type": "string" },
+          "role":       { "type": "string" },
+          "relates_to": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "dominant_paths": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+    "suppression_log": { "type": "array", "items": { "type": "string" } },
+    "implicit_assumptions": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["kind", "content", "confidence"],
+        "properties": {
+          "kind":       { "enum": ["role_absence", "direction", "temporal", "scope", "audience"] },
+          "content":    { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "constraint_lattice": {
+      "type": "object",
+      "required": ["hard", "soft", "provisional"],
+      "properties": {
+        "hard":        { "type": "array", "minItems": 1, "maxItems": 2 },
+        "soft":        { "type": "array" },
+        "provisional": { "type": "array" }
+      }
+    },
+    "concurrent_variants": { "type": "array" },
+    "projected": {
+      "type": "object",
+      "required": ["home_domain", "analogue_domain", "mapping"],
+      "properties": {
+        "home_domain":     { "type": "string" },
+        "analogue_domain": { "type": "string" },
+        "distance":        { "type": "integer", "minimum": 2 },
+        "mapping":         { "type": "array", "minItems": 3 }
+      }
+    },
+    "field": {
+      "type": "object",
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": { "type": "array", "minItems": 8 },
+        "edges": { "type": "array", "minItems": 1 }
+      }
+    },
+    "operation_log": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 150,
+      "items": {
+        "type": "object",
+        "required": ["op", "notes", "timestamp"],
+        "properties": {
+          "op":        { "type": "string" },
+          "notes":     { "type": "string" },
+          "timestamp": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T" },
+          "index":     { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

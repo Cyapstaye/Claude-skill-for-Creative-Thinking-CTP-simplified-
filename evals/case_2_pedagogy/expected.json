@@ -1,0 +1,15 @@
+{
+  "stable_core_must_satisfy": [
+    { "kind": "structure",   "check": "five lines" },
+    { "kind": "compress",    "check": "each line <= 22 words" },
+    { "kind": "originality", "check": "originality score >= 0.5 against corpus/obvious_pedagogy.md" },
+    { "kind": "viability",   "check": "is_viable == true given the supplied viability_constraint" },
+    { "kind": "seed",        "check": "Seed names a constraint" }
+  ],
+  "run_must_satisfy": [
+    { "check": "state_2 fluency_index >= 20 (cycle 0)" },
+    { "check": "mode=Applied -> mode weights row used" },
+    { "check": "target_originality = 0.50 for Applied" },
+    { "check": "operation_log has timestamps" }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "input_payload": "Design a micro-course structure for teaching adult learners a new manual skill (e.g. knife skills for home cooks) in a way that makes them more likely to practice on their own between sessions.",
+  "mode": "Applied",
+  "home_domain": "pedagogy",
+  "viability_constraint": {
+    "implementer_skills": "A cooking instructor with moderate video production capability",
+    "tools": "a kitchen, a single camera, a scheduling tool",
+    "time_budget": "two one-hour recordings per course"
+  }
+}
