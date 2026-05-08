@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_final",
+  "description": "Final aggregated state at TERMINAL. Rendered by the decode script into brief.md and full.json deliverables.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "cycles_completed", "final_outputs", "evaluation"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id": { "type": "string" },
+    "cycles_completed": { "type": "integer", "minimum": 1 },
+    "presentation_recommendation": {
+      "type": "string",
+      "enum": ["present_all", "present_top_2", "present_single"]
+    },
+    "final_outputs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["output_id", "final_form", "cycle_origin"],
+        "properties": {
+          "output_id": { "type": "integer", "minimum": 1 },
+          "final_form": { "type": "string", "minLength": 60 },
+          "cycle_origin": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Inlined view of the final cycle's state_evaluation"
+    }
+  }
+}

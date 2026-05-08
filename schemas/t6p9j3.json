@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_1_run",
+  "description": "Per-archetype ideation output for a single phase turn. Written by the model, validated by the validator.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "archetype", "shards", "cycle"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id": { "type": "string" },
+    "archetype":  {
+      "type": "string",
+      "enum": ["drifter", "tension_holder", "remapper", "compressor", "wild_associator"]
+    },
+    "cycle": { "type": "integer", "minimum": 0 },
+    "shards": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 14,
+      "items": { "type": "string", "minLength": 20, "maxLength": 160 }
+    }
+  }
+}

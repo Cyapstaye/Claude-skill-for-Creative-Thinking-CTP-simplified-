@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_evaluation",
+  "description": "Evaluation output. Drives the recurse-or-emit decision. quality_score is the dimension the validator inspects against the cycle's threshold.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "dimensional_ranks", "dimensional_scores", "presentation_recommendation", "rationale", "quality_score", "cycle"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id": { "type": "string" },
+    "cycle": { "type": "integer", "minimum": 0 },
+    "quality_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "recurse_recommended": { "type": "boolean" },
+    "recursion_seed": { "type": ["string", "null"], "maxLength": 800 },
+    "dimensional_ranks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["structural_inevitability", "tension_retention", "non_redundancy", "generative_remainder"],
+      "properties": {
+        "structural_inevitability": { "type": "array", "items": { "type": "integer" } },
+        "tension_retention":        { "type": "array", "items": { "type": "integer" } },
+        "non_redundancy":           { "type": "array", "items": { "type": "integer" } },
+        "generative_remainder":     { "type": "array", "items": { "type": "integer" } }
+      }
+    },
+    "dimensional_scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["output_id", "structural_inevitability", "tension_retention", "non_redundancy", "generative_remainder", "notes"],
+        "properties": {
+          "output_id":                { "type": "integer" },
+          "structural_inevitability": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "tension_retention":        { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "non_redundancy":           { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "generative_remainder":     { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "notes":                    { "type": "string" }
+        }
+      }
+    },
+    "presentation_recommendation": {
+      "type": "string",
+      "enum": ["present_all", "present_top_2", "present_single"]
+    },
+    "rationale": { "type": "string", "minLength": 60 }
+  }
+}

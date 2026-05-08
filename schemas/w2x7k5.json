@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_intent_vector",
+  "description": "Direction-without-destination artifact. Compiled from original_query only. Any field referencing shards, profiles, groupings, or Stage-1 reasoning is a firewall violation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "compiled_from", "pull", "away_from", "tension", "cycle"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id":    { "type": "string" },
+    "cycle": { "type": "integer", "minimum": 0 },
+    "compiled_from": { "const": "original_query" },
+    "pull":          { "type": "string", "minLength": 20, "maxLength": 400 },
+    "away_from":     { "type": "string", "minLength": 20, "maxLength": 400 },
+    "tension":       { "type": "string", "minLength": 20, "maxLength": 400 },
+    "notes":         { "type": ["string", "null"], "maxLength": 800 }
+  }
+}

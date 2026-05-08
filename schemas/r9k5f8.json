@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_1_internal",
+  "description": "Pre-firewall Stage-1 artifact. shard_groups is what will eventually cross to crafting (after firewall strip); selection_trace is internal reasoning that the firewall destroys. additionalProperties:false enforces the firewall whitelist mechanically.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "shard_groups", "selection_trace", "cycle"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id": { "type": "string" },
+    "cycle": { "type": "integer", "minimum": 0 },
+    "shard_groups": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_id", "shards"],
+        "properties": {
+          "group_id": { "type": "string", "minLength": 3, "maxLength": 60 },
+          "shards": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 8,
+            "items": { "type": "string", "minLength": 20, "maxLength": 160 }
+          }
+        }
+      }
+    },
+    "selection_trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["considered_archetypes", "rationale"],
+      "properties": {
+        "considered_archetypes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "rationale": { "type": "string", "minLength": 60 }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_profile_config",
+  "description": "Per-archetype configuration written by the bootstrap. The model reads this each turn to get its priming preamble and parameter set.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "archetype", "params", "priming_preamble", "success_signature"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "archetype": {
+      "type": "string",
+      "enum": ["drifter", "tension_holder", "remapper", "compressor", "wild_associator"]
+    },
+    "params": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["NID","TFI","DPI","FET","MAB","CUR","ARD","CBH","MSTD","RCI","CCI"],
+      "properties": {
+        "NID":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "TFI":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "DPI":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "FET":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "MAB":  { "type": "integer", "minimum": 1, "maximum": 7 },
+        "CUR":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "ARD":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "CBH":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "MSTD": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "RCI":  { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "CCI":  { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+      }
+    },
+    "priming_preamble":  { "type": "string", "minLength": 20 },
+    "success_signature": { "type": "string", "minLength": 20 }
+  }
+}

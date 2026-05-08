@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_0",
+  "description": "Session ledger. Dispatcher-managed. Model never writes to or reads from this file directly; it only sees what the dispatcher prints on stdout/stderr.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "original_query",
+    "timestamp",
+    "operation_log",
+    "runs_completed",
+    "run_stuck",
+    "seq",
+    "cycle_depth",
+    "max_recursion_depth",
+    "current_phase_retries",
+    "max_retries_per_phase"
+  ],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id":     { "type": "string", "minLength": 4 },
+    "original_query": { "type": "string", "minLength": 4 },
+    "timestamp":      { "type": "string" },
+    "clarify_answer": { "type": ["string", "null"] },
+    "operation_log":  {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "runs_completed": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Per-phase ledger. Keys are internal phase identifiers held only in dispatcher source. Values list completed profile names or output ids."
+    },
+    "run_stuck":       { "type": "boolean" },
+    "seq":             { "type": "integer", "minimum": 0 },
+
+    "cycle_depth":          { "type": "integer", "minimum": 0 },
+    "max_recursion_depth":  { "type": "integer", "minimum": 0, "maximum": 5 },
+    "recursion_seed_path":  { "type": ["string", "null"] },
+
+    "current_phase_retries": { "type": "integer", "minimum": 0 },
+    "max_retries_per_phase": { "type": "integer", "minimum": 1, "maximum": 5 },
+
+    "next_phase":     { "type": ["string", "null"] },
+    "next_profile":   { "type": ["string", "null"] },
+    "next_output_id": { "type": ["integer", "null"], "minimum": 1 },
+
+    "workspace_dir": { "type": ["string", "null"] }
+  }
+}

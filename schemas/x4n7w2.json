@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_1_group",
+  "description": "Per-archetype grouping output. Written by the model during the grouping phase, one file per archetype.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "archetype", "shard_groups", "cycle"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id": { "type": "string" },
+    "cycle": { "type": "integer", "minimum": 0 },
+    "archetype":  {
+      "type": "string",
+      "enum": ["drifter", "tension_holder", "remapper", "compressor", "wild_associator"]
+    },
+    "shard_groups": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_id", "shards"],
+        "properties": {
+          "group_id": { "type": "string", "minLength": 3, "maxLength": 60 },
+          "shards": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 8,
+            "items": { "type": "string", "minLength": 20, "maxLength": 160 }
+          }
+        }
+      }
+    }
+  }
+}

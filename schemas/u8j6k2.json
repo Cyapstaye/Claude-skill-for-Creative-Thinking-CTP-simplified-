@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_2_output",
+  "description": "Per-output crafted final form. Counted iteration: one file per output_id (1..N).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "output_id", "iteration_trace", "final_form", "emergent_properties", "cycle"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id": { "type": "string" },
+    "cycle": { "type": "integer", "minimum": 0 },
+    "output_id":  { "type": "integer", "minimum": 1, "maximum": 3 },
+    "starting_angle": { "type": "string", "minLength": 8 },
+    "iteration_trace": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["iter_index", "mashed_configuration", "observed_emergence", "recombination_decision"],
+        "properties": {
+          "iter_index":            { "type": "integer", "minimum": 1, "maximum": 5 },
+          "mashed_configuration":  { "type": "string", "minLength": 30 },
+          "observed_emergence":    { "type": "string", "minLength": 30 },
+          "recombination_decision":{ "type": "string", "minLength": 30 }
+        }
+      }
+    },
+    "final_form": { "type": "string", "minLength": 120 },
+    "emergent_properties": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": { "type": "string", "minLength": 12, "maxLength": 256 }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "state_1_crossed",
+  "description": "FIREWALL OUTPUT. Forbids every field that should not cross to the downstream crafting phase. Additional properties disallowed at every level.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "shard_groups", "cycle"],
+  "properties": {
+    "schema_version": { "const": "1" },
+    "session_id": { "type": "string" },
+    "cycle": { "type": "integer", "minimum": 0 },
+    "shard_groups": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_id", "shards"],
+        "properties": {
+          "group_id": { "type": "string" },
+          "shards": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 8,
+            "items": { "type": "string", "minLength": 20, "maxLength": 160 }
+          }
+        }
+      }
+    }
+  }
+}
